@@ -1,0 +1,14 @@
+volumes:
+  tailscale:
+
+services:
+  tailscale:
+    image: tailscale/tsrecorder:stable
+    container_name: tailscale-ssh-recorder
+    volumes:
+      - ./data:/data
+    environment:
+      - TS_AUTHKEY=.....
+      - TSRECORDER_DST=/data/recordings
+      - TS_STATE=/data/state
+      - TSRECORDER_UI=true

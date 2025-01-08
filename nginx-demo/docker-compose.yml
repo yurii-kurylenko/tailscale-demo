@@ -1,0 +1,27 @@
+volumes:
+  tailscale:
+
+services:
+  tailscale:
+    image: tailscale/tailscale:stable
+    container_name: tailscale
+    volumes:
+      - tailscale:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+      - ./serve.json:/etc/serve.json
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - TAILSCALE_AUTH_KEY=....
+      - TS_HOSTNAME=website
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_SERVE_CONFIG=/etc/serve.json
+
+  nginx:
+    image: nginxdemos/hello
+    container_name: nginx
+    network_mode: "service:tailscale"
+    depends_on:
+      - tailscale

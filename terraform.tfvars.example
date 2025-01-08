@@ -1,0 +1,3 @@
+hetzner_cloud_api_token = "<hetzner_cloud_api_token>" # Created in hetzner cloud via UI
+hetzner_cloud_ssh_key_name="<ssh key name>" # Created separetly in hetzner cloud via UI
+root_password = "<change password>" # Password for root user in one of the servers for demo purpose
